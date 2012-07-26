@@ -1,5 +1,4 @@
-// Namespace
-var troppo = {};
+var troppo = window.troppo;
 
 troppo.audio = null;
 
