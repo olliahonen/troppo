@@ -1,5 +1,6 @@
 // Namespace
-troppo = {};
+var troppo = {};
+
 
 troppo.audio = null;
 
@@ -27,7 +28,7 @@ troppo.playSound = function(symbol) {
 	if (Math.random() > 0.5) {
 		artist = 'alvar';
 	}
-	var audioPath = 'audio/' + artist + '/v1/' + symbol + '.wav'
+	var audioPath = 'audio/' + artist + '/v1/' + symbol + '.wav';
 	try {
 		audio.src = audioPath;
 	} catch (exception) {
