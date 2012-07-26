@@ -1,7 +1,6 @@
 // Namespace
 var troppo = {};
 
-
 troppo.audio = null;
 
 troppo.initialize = function() {
@@ -22,6 +21,12 @@ troppo.showSymbol = function(symbol) {
 
 troppo.playSound = function(symbol) {
 	var audio = troppo.audio;
+
+	if (!audio.error && !audio.ended && audio.src) {
+		// Still playing, abort
+		return;
+	}
+
 	audio.pause();
 
 	var artist = 'olli';
