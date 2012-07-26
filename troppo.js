@@ -20,7 +20,6 @@ troppo.showSymbol = function(symbol) {
 };
 
 troppo.playSound = function(symbol) {
-	// Play the sound
 	var audio = troppo.audio;
 	audio.pause();
 
@@ -32,7 +31,6 @@ troppo.playSound = function(symbol) {
 	try {
 		audio.src = audioPath;
 	} catch (exception) {
-		console.log('pokemon');
 		// Pokemon!
 	}
 	audio.play();
