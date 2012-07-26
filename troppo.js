@@ -9,24 +9,31 @@ troppo.initialize = function() {
 	
 	// Listen to key strokes
 	$(window).keypress(function(event) {
-		// Show the symbol
 		var inputSymbol = String.fromCharCode(event.which);
-		$('#characterDisplay').html(inputSymbol.toUpperCase() + ' ' + inputSymbol.toLowerCase());
-
-		// Play the sound
-		var audio = troppo.audio;
-		audio.pause();
-
-		var artist = 'olli';
-		if (Math.random() > 0.5) {
-			artist = 'alvar';
-		}
-		var audioPath = 'audio/' + artist + '/v1/' + inputSymbol + '.wav'
-		try {
-			audio.src = audioPath;
-		} catch (exception) {
-			// Pokemon!
-		}
-		audio.play();
+		troppo.showSymbol(inputSymbol);
+		troppo.playSound(inputSymbol);
 	});
+};
+
+troppo.showSymbol = function(symbol) {
+	$('#characterDisplay').html(symbol.toUpperCase() + ' ' + symbol.toLowerCase());
+};
+
+troppo.playSound = function(symbol) {
+	// Play the sound
+	var audio = troppo.audio;
+	audio.pause();
+
+	var artist = 'olli';
+	if (Math.random() > 0.5) {
+		artist = 'alvar';
+	}
+	var audioPath = 'audio/' + artist + '/v1/' + symbol + '.wav'
+	try {
+		audio.src = audioPath;
+	} catch (exception) {
+		console.log('pokemon');
+		// Pokemon!
+	}
+	audio.play();
 };
