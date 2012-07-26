@@ -28,15 +28,20 @@ troppo.playSound = function(symbol) {
 
 	audio.pause();
 
-	var artist = 'olli';
-	if (Math.random() > 0.5) {
-		artist = 'alvar';
-	}
-	var audioPath = 'audio/' + artist + '/v1/' + symbol + '.wav';
 	try {
-		audio.src = audioPath;
+		audio.src = troppo.createAudioPath() + '/' + symbol + '.wav';
 	} catch (exception) {
 		// Pokemon!
 	}
 	audio.play();
+};
+
+troppo.createAudioPath = function() {
+	var artists = troppo.artists;
+	// Pick artist
+	var artistIndex = Math.floor(Math.random() * artists.length);
+	var artistName = artists[artistIndex].name;
+	var artistVersion = artists[artistIndex].version;
+
+	return 'audio/' + artistName + '/v' + artistVersion;
 };
