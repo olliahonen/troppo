@@ -8,7 +8,7 @@ troppo.initialize = function() {
 	troppo.audio = new Audio();
 	
 	// Listen to key strokes
-	$(window).keyup(function(event) {
+	$(window).keypress(function(event) {
 		// Show the symbol
 		var inputSymbol = String.fromCharCode(event.which);
 		$('#characterDisplay').html(inputSymbol.toUpperCase() + ' ' + inputSymbol.toLowerCase());
