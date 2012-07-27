@@ -8,7 +8,7 @@ troppo.initialize = function() {
 	
 	// Listen to key strokes
 	$(window).keypress(function(event) {
-		var inputSymbol = String.fromCharCode(event.which);
+		var inputSymbol = String.fromCharCode(event.which).toLowerCase();
 		troppo.showSymbol(inputSymbol);
 		troppo.playSound(inputSymbol);
 	});
@@ -29,19 +29,26 @@ troppo.playSound = function(symbol) {
 	audio.pause();
 
 	try {
-		audio.src = troppo.createAudioPath() + '/' + symbol + '.wav';
+		audio.src = troppo.createAudioPath(symbol);
 	} catch (exception) {
 		// Pokemon!
 	}
 	audio.play();
 };
 
-troppo.createAudioPath = function() {
+troppo.createAudioPath = function(symbol) {
 	var artists = troppo.artists;
 	// Pick artist
 	var artistIndex = Math.floor(Math.random() * artists.length);
 	var artistName = artists[artistIndex].name;
 	var artistVersion = artists[artistIndex].version;
 
-	return 'audio/' + artistName + '/v' + artistVersion;
+	return 'audio/' + artistName + '/v' + artistVersion + '/' + troppo.symbolToAudioFilename(symbol) + '.wav';
+};
+
+troppo.symbolToAudioFilename = function(symbol) {
+	if (symbol === 'ä') {
+		return 'a-uml';
+	}
+	return symbol;
 };
