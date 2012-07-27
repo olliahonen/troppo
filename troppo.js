@@ -47,8 +47,14 @@ troppo.createAudioPath = function(symbol) {
 };
 
 troppo.symbolToAudioFilename = function(symbol) {
+	if (symbol === 'å') {
+		return 'a-ring';
+	}
 	if (symbol === 'ä') {
 		return 'a-uml';
+	}
+	if (symbol === 'ö') {
+		return 'o-uml';
 	}
 	return symbol;
 };
