@@ -1,12 +1,12 @@
 #instructions {
-	text-align: center;
-	color: #555555;
+  text-align: center;
+  color: #555555;
 }
 
 #characterDisplay {
-	margin-top: 1em;
-	text-align: center;
-	font-size: 8em;
-	font-family: sans-serif;
-	color: #222222;
+  margin-top: 1em;
+  text-align: center;
+  font-size: 8em;
+  font-family: sans-serif;
+  color: #222222;
 }
