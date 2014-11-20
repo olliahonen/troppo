@@ -1,0 +1,19 @@
+{
+  "name": "Troppo",
+  "version": "1.0.0",
+  "description": "Read the pressed key out loud in Finnish",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olliahonen/troppo.git"
+  },
+  "author": "Olli Ahonen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/olliahonen/troppo/issues"
+  },
+  "homepage": "https://github.com/olliahonen/troppo",
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-jshint": "^1.9.0"
+  }
+}
