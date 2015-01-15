@@ -1,18 +1,8 @@
-var troppo = window.troppo;
+var config = require('./config.js');
+
+var troppo = {};
 
 troppo.audio = null;
-
-troppo.initialize = function() {
-
-	troppo.audio = new Audio();
-	
-	// Listen to key strokes
-	$(window).keypress(function(event) {
-		var inputSymbol = String.fromCharCode(event.which).toLowerCase();
-		troppo.showSymbol(inputSymbol);
-		troppo.playSound(inputSymbol);
-	});
-};
 
 troppo.showSymbol = function(symbol) {
 	$('#characterDisplay').html(symbol.toUpperCase() + ' ' + symbol.toLowerCase());
@@ -37,7 +27,7 @@ troppo.playSound = function(symbol) {
 };
 
 troppo.createAudioPath = function(symbol) {
-	var artists = troppo.artists;
+	var artists = config.artists;
 	// Pick artist
 	var artistIndex = Math.floor(Math.random() * artists.length);
 	var artistName = artists[artistIndex].name;
@@ -57,4 +47,15 @@ troppo.symbolToAudioFilename = function(symbol) {
 		return 'o-uml';
 	}
 	return symbol;
+};
+
+window.onload = function () {
+	troppo.audio = new Audio();
+	
+	// Listen to key strokes
+	$(window).keypress(function (event) {
+		var inputSymbol = String.fromCharCode(event.which).toLowerCase();
+		troppo.showSymbol(inputSymbol);
+		troppo.playSound(inputSymbol);
+	});
 };
