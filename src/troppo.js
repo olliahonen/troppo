@@ -5,7 +5,7 @@ var troppo = {};
 troppo.audio = null;
 
 troppo.showSymbol = function(symbol) {
-  $('#characterDisplay').html(symbol.toUpperCase() + ' ' + symbol.toLowerCase());
+  document.querySelector('#characterDisplay').innerHTML = symbol.toUpperCase() + ' ' + symbol.toLowerCase();
 };
 
 troppo.playSound = function(symbol) {
