@@ -4,11 +4,11 @@ var troppo = {};
 
 troppo.audio = null;
 
-troppo.showSymbol = function(symbol) {
+troppo.showSymbol = function (symbol) {
   document.querySelector('#characterDisplay').innerHTML = symbol.toUpperCase() + ' ' + symbol.toLowerCase();
 };
 
-troppo.playSound = function(symbol) {
+troppo.playSound = function (symbol) {
   var audio = troppo.audio;
 
   if (!audio.error && !audio.ended && audio.src) {
@@ -26,7 +26,7 @@ troppo.playSound = function(symbol) {
   audio.play();
 };
 
-troppo.createAudioPath = function(symbol) {
+troppo.createAudioPath = function (symbol) {
   var artists = config.artists;
   // Pick artist
   var artistIndex = Math.floor(Math.random() * artists.length);
@@ -36,7 +36,7 @@ troppo.createAudioPath = function(symbol) {
   return 'audio/' + artistName + '/v' + artistVersion + '/' + troppo.symbolToAudioFilename(symbol) + '.wav';
 };
 
-troppo.symbolToAudioFilename = function(symbol) {
+troppo.symbolToAudioFilename = function (symbol) {
   if (symbol === 'å') {
     return 'a-ring';
   }
