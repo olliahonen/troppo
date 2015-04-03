@@ -1,21 +1,21 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/oaho/troppo/src/config.js":[function(require,module,exports){
 module.exports.artists = [
   {name: 'alvar', version: 1},
   {name: 'olli', version: 1}
 ];
 
-},{}],2:[function(require,module,exports){
+},{}],"/Users/oaho/troppo/src/troppo.js":[function(require,module,exports){
 var config = require('./config.js');
 
 var troppo = {};
 
 troppo.audio = null;
 
-troppo.showSymbol = function(symbol) {
-  $('#characterDisplay').html(symbol.toUpperCase() + ' ' + symbol.toLowerCase());
+troppo.showSymbol = function (symbol) {
+  document.querySelector('#characterDisplay').innerHTML = symbol.toUpperCase() + ' ' + symbol.toLowerCase();
 };
 
-troppo.playSound = function(symbol) {
+troppo.playSound = function (symbol) {
   var audio = troppo.audio;
 
   if (!audio.error && !audio.ended && audio.src) {
@@ -33,7 +33,7 @@ troppo.playSound = function(symbol) {
   audio.play();
 };
 
-troppo.createAudioPath = function(symbol) {
+troppo.createAudioPath = function (symbol) {
   var artists = config.artists;
   // Pick artist
   var artistIndex = Math.floor(Math.random() * artists.length);
@@ -43,7 +43,7 @@ troppo.createAudioPath = function(symbol) {
   return 'audio/' + artistName + '/v' + artistVersion + '/' + troppo.symbolToAudioFilename(symbol) + '.wav';
 };
 
-troppo.symbolToAudioFilename = function(symbol) {
+troppo.symbolToAudioFilename = function (symbol) {
   if (symbol === 'å') {
     return 'a-ring';
   }
@@ -67,4 +67,4 @@ window.onload = function () {
   });
 };
 
-},{"./config.js":1}]},{},[2]);
+},{"./config.js":"/Users/oaho/troppo/src/config.js"}]},{},["/Users/oaho/troppo/src/troppo.js"]);
