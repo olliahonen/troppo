@@ -18,6 +18,7 @@
   },
   "scripts": {
     "lintjs": "jshint src/*.js",
-    "browserify": "browserify src/troppo.js -o dist/bundle.js"
+    "browserify": "browserify src/troppo.js -o dist/bundle.js",
+    "watch": "watchify src/troppo.js -o dist/bundle.js -v"
   }
 }
