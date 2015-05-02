@@ -49,13 +49,20 @@ troppo.symbolToAudioFilename = function (symbol) {
   return symbol;
 };
 
+var printVersion = function () {
+  if (window.console && window.console.log) {
+    console.log("Troppo - version " + config.version)
+  }
+};
+
 window.onload = function () {
   troppo.audio = new Audio();
-  
+
   // Listen to key strokes
   $(window).keypress(function (event) {
     var inputSymbol = String.fromCharCode(event.which).toLowerCase();
     troppo.showSymbol(inputSymbol);
     troppo.playSound(inputSymbol);
   });
+  printVersion();
 };

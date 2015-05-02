@@ -1,8 +1,11 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/oaho/troppo/src/config.js":[function(require,module,exports){
-module.exports.artists = [
-  {name: 'alvar', version: 1},
-  {name: 'olli', version: 1}
-];
+module.exports = {
+  version: 1,
+  artists: [
+    {name: 'alvar', version: 1},
+    {name: 'olli', version: 1}
+  ]
+};
 
 },{}],"/Users/oaho/troppo/src/troppo.js":[function(require,module,exports){
 var config = require('./config.js');
@@ -56,15 +59,22 @@ troppo.symbolToAudioFilename = function (symbol) {
   return symbol;
 };
 
+var printVersion = function () {
+  if (window.console && window.console.log) {
+    console.log("Troppo - version " + config.version)
+  }
+};
+
 window.onload = function () {
   troppo.audio = new Audio();
-  
+
   // Listen to key strokes
   $(window).keypress(function (event) {
     var inputSymbol = String.fromCharCode(event.which).toLowerCase();
     troppo.showSymbol(inputSymbol);
     troppo.playSound(inputSymbol);
   });
+  printVersion();
 };
 
 },{"./config.js":"/Users/oaho/troppo/src/config.js"}]},{},["/Users/oaho/troppo/src/troppo.js"]);
