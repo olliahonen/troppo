@@ -59,7 +59,7 @@ window.onload = function () {
   troppo.audio = new Audio();
 
   // Listen to key strokes
-  $(window).keypress(function (event) {
+  addEventListener('keypress', function (event) {
     var inputSymbol = String.fromCharCode(event.which).toLowerCase();
     troppo.showSymbol(inputSymbol);
     troppo.playSound(inputSymbol);
