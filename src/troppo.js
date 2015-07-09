@@ -51,7 +51,7 @@ troppo.symbolToAudioFilename = function (symbol) {
 
 var printVersion = function () {
   if (window.console && window.console.log) {
-    console.log('Troppo - version ' + config.version)
+    console.log('Troppo - version ' + config.version);
   }
 };
 
