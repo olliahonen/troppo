@@ -1,3 +1,4 @@
+var Rx = require('rx-lite');
 var config = require('./config.js');
 
 var troppo = {};
@@ -58,8 +59,8 @@ var printVersion = function () {
 window.onload = function () {
   troppo.audio = new Audio();
 
-  // Listen to key strokes
-  addEventListener('keypress', function (event) {
+  var keys = Rx.Observable.fromEvent(document.body, 'keypress');
+  keys.subscribe(function (event) {
     var inputSymbol = String.fromCharCode(event.which).toLowerCase();
     troppo.showSymbol(inputSymbol);
     troppo.playSound(inputSymbol);

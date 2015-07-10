@@ -20,5 +20,8 @@
     "lintjs": "jshint src/*.js",
     "browserify": "browserify src/troppo.js -o dist/bundle.js",
     "watch": "watchify src/troppo.js -o dist/bundle.js -v"
+  },
+  "dependencies": {
+    "rx-lite": "^2.5.2"
   }
 }
