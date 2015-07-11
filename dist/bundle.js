@@ -6020,7 +6020,7 @@ module.exports = {
 var symbols = null;
 
 var observe = function (SymbolView) {
-  this.symbols = SymbolView.keypresses // TODO check `this` usage
+  this.symbols = SymbolView.keypresses
     .map(function (kpEvent) {
       return String.fromCharCode(kpEvent.which).toLowerCase();
     });
@@ -6129,7 +6129,7 @@ var Rx = require('rx-lite');
 var symbols = null;
 
 var observe = function (SymbolIntent) {
-  this.symbols = SymbolIntent.symbols; // TODO check `this` usage
+  this.symbols = SymbolIntent.symbols;
 };
 
 var keypresses = Rx.Observable.fromEvent(document.body, 'keypress');
