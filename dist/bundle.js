@@ -6016,21 +6016,33 @@ module.exports = {
   ]
 };
 
-},{}],"/Users/oaho/troppo/src/troppo.js":[function(require,module,exports){
-var Rx = require('rx-lite');
-var config = require('./config.js');
+},{}],"/Users/oaho/troppo/src/intents/SymbolIntent.js":[function(require,module,exports){
+var symbols = null;
 
-var troppo = {};
-
-troppo.audio = null;
-
-troppo.showSymbol = function (symbol) {
-  document.querySelector('#characterDisplay').innerHTML = symbol.toUpperCase() + ' ' + symbol.toLowerCase();
+var observe = function (SymbolView) {
+  this.symbols = SymbolView.keypresses // TODO check `this` usage
+    .map(function (kpEvent) {
+      return String.fromCharCode(kpEvent.which).toLowerCase();
+    });
 };
 
-troppo.playSound = function (symbol) {
-  var audio = troppo.audio;
+module.exports = {
+  observe: observe,
+  symbols: symbols
+};
 
+},{}],"/Users/oaho/troppo/src/player.js":[function(require,module,exports){
+var config = require('./config.js');
+var SymbolView = require('./views/SymbolView.js');
+
+var audio = null;
+
+var init = function () {
+  audio = new Audio();
+  SymbolView.symbols.subscribe(playSound)
+};
+
+var playSound = function (symbol) {
   if (!audio.error && !audio.ended && audio.src) {
     // Still playing, abort
     return;
@@ -6039,24 +6051,24 @@ troppo.playSound = function (symbol) {
   audio.pause();
 
   try {
-    audio.src = troppo.createAudioPath(symbol);
+    audio.src = createAudioPath(symbol);
   } catch (exception) {
     // Pokemon!
   }
   audio.play();
 };
 
-troppo.createAudioPath = function (symbol) {
+var createAudioPath = function (symbol) {
   var artists = config.artists;
   // Pick artist
   var artistIndex = Math.floor(Math.random() * artists.length);
   var artistName = artists[artistIndex].name;
   var artistVersion = artists[artistIndex].version;
 
-  return 'audio/' + artistName + '/v' + artistVersion + '/' + troppo.symbolToAudioFilename(symbol) + '.wav';
+  return 'audio/' + artistName + '/v' + artistVersion + '/' + symbolToAudioFilename(symbol) + '.wav';
 };
 
-troppo.symbolToAudioFilename = function (symbol) {
+var symbolToAudioFilename = function (symbol) {
   if (symbol === 'å') {
     return 'a-ring';
   }
@@ -6069,6 +6081,32 @@ troppo.symbolToAudioFilename = function (symbol) {
   return symbol;
 };
 
+module.exports = {
+  init: init
+};
+
+},{"./config.js":"/Users/oaho/troppo/src/config.js","./views/SymbolView.js":"/Users/oaho/troppo/src/views/SymbolView.js"}],"/Users/oaho/troppo/src/renderer.js":[function(require,module,exports){
+var SymbolView = require('./views/SymbolView.js');
+
+var init = function () {
+  SymbolView.symbols.subscribe(showSymbol);
+};
+
+var showSymbol = function (symbol) {
+  document.querySelector('#characterDisplay').innerHTML = symbol.toUpperCase() + ' ' + symbol.toLowerCase();
+};
+
+module.exports = {
+  init: init
+};
+
+},{"./views/SymbolView.js":"/Users/oaho/troppo/src/views/SymbolView.js"}],"/Users/oaho/troppo/src/troppo.js":[function(require,module,exports){
+var config = require('./config.js');
+var renderer = require('./renderer.js');
+var player = require('./player.js');
+var SymbolView = require('./views/SymbolView.js');
+var SymbolIntent = require('./intents/SymbolIntent.js');
+
 var printVersion = function () {
   if (window.console && window.console.log) {
     console.log('Troppo - version ' + config.version);
@@ -6076,18 +6114,33 @@ var printVersion = function () {
 };
 
 window.onload = function () {
-  troppo.audio = new Audio();
+  SymbolIntent.observe(SymbolView);
+  SymbolView.observe(SymbolIntent);
 
-  var keys = Rx.Observable.fromEvent(document.body, 'keypress');
-  keys.subscribe(function (event) {
-    var inputSymbol = String.fromCharCode(event.which).toLowerCase();
-    troppo.showSymbol(inputSymbol);
-    troppo.playSound(inputSymbol);
-  });
+  renderer.init();
+  player.init();
+
   printVersion();
 };
 
-},{"./config.js":"/Users/oaho/troppo/src/config.js","rx-lite":"/Users/oaho/troppo/node_modules/rx-lite/rx.lite.js"}],"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js":[function(require,module,exports){
+},{"./config.js":"/Users/oaho/troppo/src/config.js","./intents/SymbolIntent.js":"/Users/oaho/troppo/src/intents/SymbolIntent.js","./player.js":"/Users/oaho/troppo/src/player.js","./renderer.js":"/Users/oaho/troppo/src/renderer.js","./views/SymbolView.js":"/Users/oaho/troppo/src/views/SymbolView.js"}],"/Users/oaho/troppo/src/views/SymbolView.js":[function(require,module,exports){
+var Rx = require('rx-lite');
+
+var symbols = null;
+
+var observe = function (SymbolIntent) {
+  this.symbols = SymbolIntent.symbols; // TODO check `this` usage
+};
+
+var keypresses = Rx.Observable.fromEvent(document.body, 'keypress');
+
+module.exports = {
+  observe: observe,
+  symbols: symbols,
+  keypresses: keypresses
+};
+
+},{"rx-lite":"/Users/oaho/troppo/node_modules/rx-lite/rx.lite.js"}],"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js":[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
