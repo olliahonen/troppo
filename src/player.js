@@ -5,7 +5,7 @@ var audio = null;
 
 var init = function () {
   audio = new Audio();
-  SymbolView.symbols.subscribe(playSound)
+  SymbolView.symbols.subscribe(playSound);
 };
 
 var playSound = function (symbol) {
