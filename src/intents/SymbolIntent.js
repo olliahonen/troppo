@@ -1,4 +1,4 @@
-var symbols = null;
+var symbols = null; // TODO: initialize to an observer or sth
 
 var observe = function (SymbolView) {
   this.symbols = SymbolView.keypresses
