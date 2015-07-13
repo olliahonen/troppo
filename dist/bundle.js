@@ -7364,7 +7364,7 @@
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"_process":"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/oaho/troppo/src/config.js":[function(require,module,exports){
 module.exports = {
-  version: 4,
+  version: 5,
   artists: [
     {name: 'alvar', version: 1},
     {name: 'olli', version: 1}
