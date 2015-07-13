@@ -6019,15 +6019,16 @@ module.exports = {
 },{}],"/Users/oaho/troppo/src/intents/SymbolIntent.js":[function(require,module,exports){
 var Rx = require('rx-lite');
 
-var symbols = new Rx.Subject();
+var keypressesInput = new Rx.Subject();
 
 var observe = function (SymbolView) {
-  SymbolView.keypresses
-    .map(function (kpEvent) {
-      return String.fromCharCode(kpEvent.which).toLowerCase();
-    })
-    .subscribe(symbols);
+  SymbolView.keypresses.subscribe(keypressesInput);
 };
+
+var symbols = keypressesInput
+  .map(function (kpEvent) {
+    return String.fromCharCode(kpEvent.which).toLowerCase();
+  });
 
 module.exports = {
   observe: observe,
