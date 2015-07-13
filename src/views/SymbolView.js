@@ -1,9 +1,9 @@
 var Rx = require('rx-lite');
 
-var symbols = null; // TODO: initialize to an observer or sth
+var symbols = new Rx.Subject();
 
 var observe = function (SymbolIntent) {
-  this.symbols = SymbolIntent.symbols;
+  SymbolIntent.symbols.subscribe(symbols);
 };
 
 var keypresses = Rx.Observable.fromEvent(document.body, 'keypress');

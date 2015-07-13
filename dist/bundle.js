@@ -6017,13 +6017,16 @@ module.exports = {
 };
 
 },{}],"/Users/oaho/troppo/src/intents/SymbolIntent.js":[function(require,module,exports){
-var symbols = null; // TODO: initialize to an observer or sth
+var Rx = require('rx-lite');
+
+var symbols = new Rx.Subject();
 
 var observe = function (SymbolView) {
-  this.symbols = SymbolView.keypresses
+  SymbolView.keypresses
     .map(function (kpEvent) {
       return String.fromCharCode(kpEvent.which).toLowerCase();
-    });
+    })
+    .subscribe(symbols);
 };
 
 module.exports = {
@@ -6031,7 +6034,7 @@ module.exports = {
   symbols: symbols
 };
 
-},{}],"/Users/oaho/troppo/src/player.js":[function(require,module,exports){
+},{"rx-lite":"/Users/oaho/troppo/node_modules/rx-lite/rx.lite.js"}],"/Users/oaho/troppo/src/player.js":[function(require,module,exports){
 var config = require('./config.js');
 var SymbolView = require('./views/SymbolView.js');
 
@@ -6128,10 +6131,10 @@ window.onload = function () {
 },{"./config.js":"/Users/oaho/troppo/src/config.js","./intents/SymbolIntent.js":"/Users/oaho/troppo/src/intents/SymbolIntent.js","./player.js":"/Users/oaho/troppo/src/player.js","./renderer.js":"/Users/oaho/troppo/src/renderer.js","./views/SymbolView.js":"/Users/oaho/troppo/src/views/SymbolView.js"}],"/Users/oaho/troppo/src/views/SymbolView.js":[function(require,module,exports){
 var Rx = require('rx-lite');
 
-var symbols = null; // TODO: initialize to an observer or sth
+var symbols = new Rx.Subject();
 
 var observe = function (SymbolIntent) {
-  this.symbols = SymbolIntent.symbols;
+  SymbolIntent.symbols.subscribe(symbols);
 };
 
 var keypresses = Rx.Observable.fromEvent(document.body, 'keypress');

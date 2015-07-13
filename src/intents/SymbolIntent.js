@@ -1,10 +1,13 @@
-var symbols = null; // TODO: initialize to an observer or sth
+var Rx = require('rx-lite');
+
+var symbols = new Rx.Subject();
 
 var observe = function (SymbolView) {
-  this.symbols = SymbolView.keypresses
+  SymbolView.keypresses
     .map(function (kpEvent) {
       return String.fromCharCode(kpEvent.which).toLowerCase();
-    });
+    })
+    .subscribe(symbols);
 };
 
 module.exports = {
