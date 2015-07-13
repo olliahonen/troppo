@@ -6131,13 +6131,13 @@ window.onload = function () {
 },{"./config.js":"/Users/oaho/troppo/src/config.js","./intents/SymbolIntent.js":"/Users/oaho/troppo/src/intents/SymbolIntent.js","./player.js":"/Users/oaho/troppo/src/player.js","./renderer.js":"/Users/oaho/troppo/src/renderer.js","./views/SymbolView.js":"/Users/oaho/troppo/src/views/SymbolView.js"}],"/Users/oaho/troppo/src/views/SymbolView.js":[function(require,module,exports){
 var Rx = require('rx-lite');
 
+var keypresses = Rx.Observable.fromEvent(document.body, 'keypress');
+
 var symbols = new Rx.Subject();
 
 var observe = function (SymbolIntent) {
   SymbolIntent.symbols.subscribe(symbols);
 };
-
-var keypresses = Rx.Observable.fromEvent(document.body, 'keypress');
 
 module.exports = {
   observe: observe,
