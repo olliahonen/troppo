@@ -6094,11 +6094,11 @@ var SymbolView = require('./views/SymbolView.js');
 var element = document.querySelector('#characterDisplay');
 
 var init = function () {
-  SymbolView.symbols.subscribe(showSymbol);
+  SymbolView.characterDisplay.subscribe(render);
 };
 
-var showSymbol = function (symbol) {
-  element.innerHTML = symbol.toUpperCase() + ' ' + symbol.toLowerCase();
+var render = function (content) {
+  element.innerHTML = content;
 };
 
 module.exports = {
@@ -6135,14 +6135,22 @@ var keypresses = Rx.Observable.fromEvent(document.body, 'keypress');
 
 var symbols = new Rx.Subject();
 
+var characterDisplay = new Rx.Subject();
+
 var observe = function (SymbolIntent) {
   SymbolIntent.symbols.subscribe(symbols);
+  SymbolIntent.symbols
+    .map(function (symbol) {
+      return symbol.toUpperCase() + ' ' + symbol.toLowerCase();
+    })
+    .subscribe(characterDisplay);
 };
 
 module.exports = {
   observe: observe,
   symbols: symbols,
-  keypresses: keypresses
+  keypresses: keypresses,
+  characterDisplay: characterDisplay
 };
 
 },{"rx-lite":"/Users/oaho/troppo/node_modules/rx-lite/rx.lite.js"}],"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js":[function(require,module,exports){

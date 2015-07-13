@@ -3,11 +3,11 @@ var SymbolView = require('./views/SymbolView.js');
 var element = document.querySelector('#characterDisplay');
 
 var init = function () {
-  SymbolView.symbols.subscribe(showSymbol);
+  SymbolView.characterDisplay.subscribe(render);
 };
 
-var showSymbol = function (symbol) {
-  element.innerHTML = symbol.toUpperCase() + ' ' + symbol.toLowerCase();
+var render = function (content) {
+  element.innerHTML = content;
 };
 
 module.exports = {
