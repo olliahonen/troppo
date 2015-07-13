@@ -6110,25 +6110,22 @@ var Rx = require('rx-lite');
 var config = require('../config.js');
 
 var keypresses = Rx.Observable.fromEvent(document.body, 'keypress');
-var characterDisplay = new Rx.Subject();
-var audioPath = new Rx.Subject();
+var intentSymbols = new Rx.Subject();
 
 var observe = function (SymbolIntent) {
-  SymbolIntent.symbols
-    .map(createAudioPath)
-    .subscribe(audioPath);
-
-  SymbolIntent.symbols
-    .map(function (symbol) {
-      return symbol.toUpperCase() + ' ' + symbol.toLowerCase();
-    })
-    .subscribe(characterDisplay);
+  SymbolIntent.symbols.subscribe(intentSymbols);
 };
 
-var createAudioPath = function (symbol) {
-  var artist = pickArtist();
-  return 'audio/' + artist.name + '/v' + artist.version + '/' + symbolToAudioFilename(symbol) + '.wav';
-};
+var characterDisplay = intentSymbols
+  .map(function (symbol) {
+    return symbol.toUpperCase() + ' ' + symbol.toLowerCase();
+  });
+
+var audioPath = intentSymbols
+  .map(function (symbol) {
+    var artist = pickArtist();
+    return 'audio/' + artist.name + '/v' + artist.version + '/' + symbolToAudioFilename(symbol) + '.wav';
+  });
 
 var pickArtist = function () {
   var artists = config.artists;
