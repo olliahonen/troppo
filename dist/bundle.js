@@ -6125,13 +6125,17 @@ var observe = function (SymbolIntent) {
 };
 
 var createAudioPath = function (symbol) {
-  var artists = config.artists;
-  // Pick artist
-  var artistIndex = Math.floor(Math.random() * artists.length);
-  var artistName = artists[artistIndex].name;
-  var artistVersion = artists[artistIndex].version;
+  var artist = pickArtist();
+  return 'audio/' + artist.name + '/v' + artist.version + '/' + symbolToAudioFilename(symbol) + '.wav';
+};
 
-  return 'audio/' + artistName + '/v' + artistVersion + '/' + symbolToAudioFilename(symbol) + '.wav';
+var pickArtist = function () {
+  var artists = config.artists;
+  var artistIndex = Math.floor(Math.random() * artists.length);
+  return {
+    name: artists[artistIndex].name,
+    version: artists[artistIndex].version
+  };
 };
 
 var symbolToAudioFilename = function (symbol) {
