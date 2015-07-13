@@ -22,6 +22,7 @@
     "watch": "watchify src/troppo.js -o dist/bundle.js -v"
   },
   "dependencies": {
+    "howler": "^1.1.26",
     "rx-lite": "^2.5.2"
   }
 }
