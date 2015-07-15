@@ -1,7 +1,7 @@
 var Rx = require('rx-lite');
 var config = require('../config.js');
 
-var keypresses = Rx.Observable.fromEvent(document.body, 'keypress');
+var keypresses = Rx.Observable.fromEvent(window, 'keypress');
 var intentSymbols = new Rx.Subject();
 
 var observe = function (SymbolIntent) {
