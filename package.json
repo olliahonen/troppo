@@ -17,7 +17,7 @@
     "jshint": "^2.5.11"
   },
   "scripts": {
-    "lintjs": "jshint src/*.js",
+    "lintjs": "jshint src/*.js src/**/*.js",
     "browserify": "browserify src/troppo.js -o dist/bundle.js",
     "watch": "watchify src/troppo.js -o dist/bundle.js -v"
   },
