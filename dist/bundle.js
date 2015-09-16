@@ -7364,7 +7364,7 @@
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"_process":"/usr/local/lib/node_modules/watchify/node_modules/browserify/node_modules/process/browser.js"}],"/Users/oaho/troppo/src/config.js":[function(require,module,exports){
 module.exports = {
-  version: 6,
+  version: 7,
   artists: [
     {name: 'alvar', version: 1},
     {name: 'olli', version: 1}
@@ -7375,12 +7375,17 @@ module.exports = {
 var Rx = require('rx-lite');
 
 var keypressesInput = new Rx.Subject();
+var maximumFrequency = new Rx.Observable.interval(530);
 
 var observe = function (SymbolView) {
   SymbolView.keypresses.subscribe(keypressesInput);
 };
 
-var symbols = keypressesInput
+var symbols = maximumFrequency
+  .sample(keypressesInput)
+  .withLatestFrom(keypressesInput, function (i, kpEvent) {
+    return kpEvent;
+  })
   .map(function (kpEvent) {
     return String.fromCharCode(kpEvent.which).toLowerCase();
   });
